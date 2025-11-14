@@ -7,7 +7,7 @@
 //! # Example
 //!
 //! ```
-//! let mut hasher = reference_impl::Hasher::new();
+//! let mut hasher = const_blake3::Hasher::new();
 //! hasher.update(b"abc");
 //! hasher.update(b"def");
 //! let mut hash = [0; 32];
