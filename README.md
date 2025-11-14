@@ -29,3 +29,23 @@ dependencies. It is not optimized for performance.
 There are ports of this reference implementation to other languages:
 - [C](https://github.com/oconnor663/blake3_reference_impl_c)
 - [Python](https://github.com/oconnor663/pure_python_blake3)
+
+## Running the Kani proofs
+
+This fork bundles a set of [Kani](https://model-checking.github.io/kani/) harnesses
+that compare the const-friendly implementation against the official `blake3`
+crate for bounded input sizes. To run them:
+
+1. [Install the Kani verifier](https://model-checking.github.io/kani/getting-started.html),
+   which provides the `cargo kani` subcommand.
+2. From the repository root, invoke `cargo kani` with the desired harness:
+
+   ```bash
+   cargo kani --harness proofs::reference_matches_unkeyed
+   cargo kani --harness proofs::reference_matches_keyed
+   cargo kani --harness proofs::reference_matches_derive_key
+   ```
+
+   Each harness instantiates both implementations with the same symbolic
+   inputs and proves that their outputs are identical for all messages up to 64
+   bytes (and valid derive-key contexts in the third harness).
