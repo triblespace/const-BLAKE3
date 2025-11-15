@@ -451,3 +451,6 @@ impl Hasher {
         output.root_output_bytes(out_slice);
     }
 }
+
+#[cfg(kani)]
+mod proofs;

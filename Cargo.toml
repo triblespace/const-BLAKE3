@@ -6,3 +6,10 @@ edition = "2021"
 [lib]
 name = "const_blake3"
 path = "src/lib.rs"
+
+[dev-dependencies]
+blake3 = "1"
+kani = "0.0.1"
+
+[lints.rust]
+unexpected_cfgs = { level = "warn", check-cfg = ['cfg(kani)'] }
