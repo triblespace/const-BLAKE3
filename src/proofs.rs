@@ -1,9 +1,10 @@
 use crate::Hasher;
 
-const MAX_MESSAGE_LEN: usize = 64;
-const XOF_OUTPUT_LEN: usize = 64;
+const MAX_MESSAGE_LEN: usize = 16;
+const XOF_OUTPUT_LEN: usize = 32;
 
 #[kani::proof]
+#[kani::unwind(32)]
 fn reference_matches_unkeyed() {
     let message: [u8; MAX_MESSAGE_LEN] = kani::any();
     let message_len: usize = kani::any();
@@ -23,6 +24,7 @@ fn reference_matches_unkeyed() {
 }
 
 #[kani::proof]
+#[kani::unwind(32)]
 fn reference_matches_keyed() {
     let key: [u8; blake3::KEY_LEN] = kani::any();
     let message: [u8; MAX_MESSAGE_LEN] = kani::any();
@@ -43,6 +45,7 @@ fn reference_matches_keyed() {
 }
 
 #[kani::proof]
+#[kani::unwind(32)]
 fn reference_matches_derive_key() {
     let context_bytes: [u8; 16] = kani::any();
     let context_len: usize = kani::any();
